@@ -1,32 +1,45 @@
 import styles from "./styles.module.scss";
-import {FaPlus} from "react-icons/fa";
+import {FiPlus} from "react-icons/fi";
+import { useMemo } from "react";
 
-export function WalletInfo() {
+
+interface WalletInfoInterface {
+    balance:number,
+    invested:number,
+    hasVisibleValues:boolean
+}
+
+export function WalletInfo({balance, invested, hasVisibleValues}: WalletInfoInterface) {
+
+    const totalWalltet = useMemo(() => {
+        return balance + invested;
+    }, [balance, invested])
+
+    const handlerFormatterCurrency = (value:number):string => {
+        return new Intl.NumberFormat('pt-BR', {style:'currency', currency:'BRL'}).format(value);
+    }
+
     return (
-        <div className={styles.header_segunda_linha}>
+        <div className={styles.walletInfo}>
 
-            <div className={styles.header_card}>
-                <div className={styles.header_card_infos}>
-                    <span className={styles.span_fino}>Saldo da Conta</span>
-                    <span className={styles.span_grosso}>R$45.000</span>
-                </div>
-                <button>
-                    <FaPlus />
+            <div>
+                <p>Saldo da Conta</p>
+                <strong>{hasVisibleValues ? handlerFormatterCurrency(balance) : "*****"}</strong>
+                <button 
+                    className={styles.walletInfo__button}
+                    type="button" onClick={() => console.log("Ir para pagina de adicionar saldo!")} >
+                    <FiPlus size={25}/>
                 </button>
             </div>
 
-            <div className={styles.header_card}>
-                <div className={styles.header_card_infos}>
-                    <span className={styles.span_fino}>Total Investido</span>
-                    <span className={styles.span_grosso}>R$45.000</span>
-                </div>
+            <div>
+                <p>Total Investido</p>
+                <strong>{hasVisibleValues ? handlerFormatterCurrency(invested) : "*****"}</strong>
             </div>
 
-            <div className={styles.header_card}>
-                <div className={styles.header_card_infos}>
-                    <span className={styles.span_fino}>Saldo Total</span>
-                    <span className={styles.span_grosso}>R$45.000</span>
-                </div>
+            <div>
+                <p>Saldo Total</p>
+                <strong>{hasVisibleValues ? handlerFormatterCurrency(totalWalltet) : "*****"}</strong>
             </div>
 
         </div>
