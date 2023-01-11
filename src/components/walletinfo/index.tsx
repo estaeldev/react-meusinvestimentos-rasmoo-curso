@@ -1,7 +1,7 @@
 import styles from "./styles.module.scss";
 import {FiPlus} from "react-icons/fi";
 import { useMemo } from "react";
-
+import { formatterCurrency } from "../../utils/format";
 
 interface WalletInfoInterface {
     balance:number,
@@ -15,16 +15,12 @@ export function WalletInfo({balance, invested, hasVisibleValues}: WalletInfoInte
         return balance + invested;
     }, [balance, invested])
 
-    const handlerFormatterCurrency = (value:number):string => {
-        return new Intl.NumberFormat('pt-BR', {style:'currency', currency:'BRL'}).format(value);
-    }
-
     return (
         <div className={styles.walletInfo}>
 
             <div>
                 <p>Saldo da Conta</p>
-                <strong>{hasVisibleValues ? handlerFormatterCurrency(balance) : "*****"}</strong>
+                <strong>{hasVisibleValues ? formatterCurrency(balance) : "*****"}</strong>
                 <button 
                     className={styles.walletInfo__button}
                     type="button" onClick={() => console.log("Ir para pagina de adicionar saldo!")} >
@@ -34,12 +30,12 @@ export function WalletInfo({balance, invested, hasVisibleValues}: WalletInfoInte
 
             <div>
                 <p>Total Investido</p>
-                <strong>{hasVisibleValues ? handlerFormatterCurrency(invested) : "*****"}</strong>
+                <strong>{hasVisibleValues ? formatterCurrency(invested) : "*****"}</strong>
             </div>
 
             <div>
                 <p>Saldo Total</p>
-                <strong>{hasVisibleValues ? handlerFormatterCurrency(totalWalltet) : "*****"}</strong>
+                <strong>{hasVisibleValues ? formatterCurrency(totalWalltet) : "*****"}</strong>
             </div>
 
         </div>

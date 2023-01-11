@@ -20,6 +20,10 @@
     border-radius: 60px;
     padding: 10px 14px;
 
+    svg {
+        color: #999;
+    }
+
     input {
         background: transparent;
         color: var(--black);
@@ -38,32 +42,43 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
+    margin-top: 55px;
+    padding-bottom: 80px;
 }
 
-.actions {
+.action {
+    overflow: hidden;
     border-radius: 6px;
 
-    .action__info {
+    .action__info, .action__footer {
         display: flex;
         flex-direction: column;
         row-gap: 12px;
         padding: 30px;
+    }
+
+    .action__info {
         background: var(--grey);
 
         h1 {
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             font-size: 22px;
             line-height: 25px;
             font-weight: 400px;
             color: var(--black);
 
             span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
                 width: 76px;
                 height: 27px;
-                border-radius: 50px;
-                text-align: center;
+                font-size: 14px;
+                border-radius: 40px;
                 background: var(--regular-purple);
                 color: var(--white);
             }
@@ -76,8 +91,28 @@
 
     }
 
-}
+    .action__footer {
+        background: var(--regular-purple);
+        
+        p {
+            font-size: 16px;
+            line-height: 18px;
+            color: var(--white);
 
+            strong {
+                margin-right: 5px;
+            }
+        }
+
+    }
+
+    &.action__disabled {
+        opacity: 0.3;
+        user-select: none;
+        filter: grayscale(1);
+    }
+
+}
 
 
 
