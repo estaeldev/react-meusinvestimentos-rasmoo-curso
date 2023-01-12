@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 import {FaRegAddressCard} from "react-icons/fa"
 import {FiEye, FiEyeOff} from "react-icons/fi"
 
@@ -17,9 +17,9 @@ export function UserInfo({username, hasVisibleValues, changeVisibleValues}:UserI
         <div className={styles.userInfo}>
 
             <div className={styles.avatar}>
-                <div className={styles.avatar__icon}>
+                <Link className={styles.avatar__icon} to="/">
                     <FaRegAddressCard size={24}/>
-                </div>
+                </Link>
                 <p>
                     Bem-vindo, <br />
                     <strong>{username}</strong>

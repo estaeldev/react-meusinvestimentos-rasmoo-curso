@@ -11,7 +11,7 @@ interface WalletInfoInterface {
 
 export function WalletInfo({balance, invested, hasVisibleValues}: WalletInfoInterface) {
 
-    const totalWalltet = useMemo(() => {
+    const totalWallet: number = useMemo(() => {
         return balance + invested;
     }, [balance, invested])
 
@@ -35,7 +35,7 @@ export function WalletInfo({balance, invested, hasVisibleValues}: WalletInfoInte
 
             <div>
                 <p>Saldo Total</p>
-                <strong>{hasVisibleValues ? formatterCurrency(totalWalltet) : "*****"}</strong>
+                <strong>{hasVisibleValues ? formatterCurrency(totalWallet) : "*****"}</strong>
             </div>
 
         </div>
