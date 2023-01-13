@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { isFuture, parseISO } from "date-fns";
+
 
 import { Layout } from "../../components/layout";
 import { ActionCard } from "../../components/actioncard";
@@ -12,9 +14,9 @@ export function InvestmentsListPage() {
     const [actions, setActions] = useState<ActionInterface[]>([])
 
     const loadInvestments = async () => {
-        const response = await api.get<ActionInterface[]>('investments');
-        setActions(response.data);
-        
+        const {data} = await api.get<ActionInterface[]>('investments');
+        const actionsApi = data.filter(action => isFuture(parseISO(action.time)));
+        setActions(actionsApi);
     }
 
     useEffect(() => {

@@ -1,0 +1,36 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    .header, .main {
+        padding: 0 150px;
+    }
+
+}
+
+.header {
+    display: flex;
+    align-items: center;
+
+    height: 100px;
+    margin-bottom: 95px;
+    background: var(--regular-purple);
+    
+    a {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        column-gap: 32px;
+        font-size: 22px;
+        line-height: 26px;
+        font-weight: 700;
+        color: var(--white);
+    }
+
+}
+
+
+

@@ -1,0 +1,109 @@
+.invest {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.badge {
+    font-size: 14px;
+    line-height: 16px;
+    padding: 5px 15px;
+    border-radius: 50px;
+    background-color: var(--regular-purple);
+    color: var(--white);
+}
+
+.action {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 36px;
+
+
+    h1 {
+        font-size: 24px;
+        line-height: 28px;
+        font-weight: 400;
+        color: var(--black);
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 18px;
+    }
+
+    > P {
+        color: var(--black);
+    }
+
+    div {
+        display: flex;
+        align-items: center;
+        column-gap: 42px;
+
+        p {
+            color: var(--regular-purple);
+        }
+    }
+
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 16px;
+
+    width: 645px;
+    border: 1px solid var(--grey);
+    border-radius: 6px;
+    padding: 42px 0;
+
+
+    strong {
+        font-size: 22px;
+        line-height: 25px;
+        font-weight: 400;
+        color: var(--regular-purple);
+    }
+
+    input {
+        width: 100%;
+        max-width: 300px;
+        margin-top: 16px;
+        padding: 10px 0;
+        text-align: center;
+        border-radius: 10px;
+        border: 1px solid var(--regular-purple);
+        background: transparent;
+    }
+
+    .form__footer {
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        column-gap: 10px;
+
+        button {
+            width: 145px;
+            height: 34px;
+            border-radius: 10px;
+            border: 0;
+            font-size: 12px;
+            line-height: 14px;
+            font-weight: 500;
+
+            &:first-child {
+                color: var(--black);
+                background: var(--grey);
+            }
+
+            &:last-child {
+                color: var(--white);
+                background: var(--regular-purple);
+            }
+
+        }
+    }
+    
+}

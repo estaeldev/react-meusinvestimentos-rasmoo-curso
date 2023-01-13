@@ -4,6 +4,7 @@ import { isPast, parseISO } from "date-fns";
 import { formatterCurrency, formatterDate } from "../../utils/format";
 import { ActionInterface } from "../../types/actions";
 import styles from "./styles.module.scss";
+import { Link } from "react-router-dom";
 
 
 interface ActionCardInterface extends ActionInterface {
@@ -30,16 +31,18 @@ export function ActionCard({isBuy=false,...action}: ActionCardInterface) {
             </div>
             
             <footer className={styles.action__footer}>
-                <p> 
-                    <strong>Valor investido:</strong> 
-                    {formatterCurrency(action.minValue)} 
-                </p>
-                <p> 
-                    <strong>Vencimento:</strong> 
-                    {formatterDate(parseISO(action.time))} 
-                </p>
+                <div>
+                    <p> 
+                        <strong>Valor investido:</strong> 
+                        {formatterCurrency(action.minValue)} 
+                    </p>
+                    <p> 
+                        <strong>Vencimento:</strong> 
+                        {formatterDate(parseISO(action.time))} 
+                    </p>
+                </div>
 
-                {isBuy ? (<button>Comprar</button>) : ""}
+                {isBuy ? (<Link to={`/investir/${action.id}`}>Comprar</Link>) : ''}
                 
             </footer>
 
