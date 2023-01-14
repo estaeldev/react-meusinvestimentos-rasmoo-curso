@@ -16,13 +16,17 @@ export function MyInvestmentsPage() {
         const localActions: ActionLocalStorageInterface[] = JSON.parse(localStorage.getItem('actions') || '') || [];
         
         const {data} = await api.get<ActionInterface[]>('investments');
-        setActions(localActions.map(ac => {
-            const dataAction = data.find(action => action.id == ac.id)
-            return {
+
+        const result = localActions.map(ac => {
+            const dataAction = data.find(action => action.id == ac.id);
+            const resutAction = {
                 ... dataAction,
                 quant: ac.quant
-            } as ActionInterface
-        }));
+            }
+            return resutAction as ActionInterface
+        })
+        
+        setActions(result);
     }
 
     useEffect(() => {
