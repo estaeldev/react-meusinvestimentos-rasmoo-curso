@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { LayoutSimple } from "../../components/layoutsimple";
@@ -8,9 +8,13 @@ import api from "../../service/api";
 import { ActionInterface } from "../../types/actions";
 import { formatterCurrency } from "../../utils/format";
 
+const BANLANCE_USER = 8950;
+
 export function InvestirPage() {
     const params = useParams();
     const [action, setAction] = useState<ActionInterface | null>(null);
+    const [quantAction, setQuantAction] = useState<number>(0);
+    
 
     const loadAction = async () => {
         const {data} = await api.get<ActionInterface>(`investments/${params.id}`);
@@ -25,10 +29,20 @@ export function InvestirPage() {
         
     }
 
+    const maxQuantAction = useMemo(() => {
+        if(action) {
+            return Math.floor(BANLANCE_USER / action.minValue);
+        }
+        return 0;
+    }, [action?.minValue])
+
     const buyInvestment = (event: FormEvent): void => {
         event.preventDefault();
-        console.log();
-        
+        console.log(quantAction);
+        if(quantAction <= maxQuantAction){
+
+        }
+        setQuantAction(0);
     }
 
     return (
@@ -52,8 +66,15 @@ export function InvestirPage() {
 
                     <form className={styles.form} onSubmit={buyInvestment}>
                         <strong>Adicionar Valor</strong>
-                        <span className={styles.badge}>Saldo Atual {formatterCurrency(29909)} </span>
-                        <input type="number" placeholder="Adicionar Cotas" />
+                        <span className={styles.badge}>Saldo Atual {formatterCurrency(BANLANCE_USER)} </span>
+                        <input 
+                            type="number" 
+                            value={quantAction}
+                            min={0}
+                            max={maxQuantAction}
+                            placeholder="Adicionar Cotas" 
+                            onChange={event => setQuantAction(Number(event.target.value))}
+                        />
                         <footer className={styles.form__footer}>
                             <button type="button" onClick={cancelInvestment}>CANCELAR</button>
                             <button type="submit">CONFIRMAR</button>
