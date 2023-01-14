@@ -4,7 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import { Layout } from "../../components/layout";
 import { ActionCard } from "../../components/actioncard";
 
-import { ActionInterface } from "../../types/actions";
+import { ActionInterface, ActionLocalStorageInterface } from "../../types/actions";
 import styles from "./styles.module.scss";
 import api from "../../service/api";
 
@@ -13,9 +13,16 @@ export function MyInvestmentsPage() {
     const [actions, setActions] = useState<ActionInterface[]>([]);
 
     const loadInvestments = async () => {
-        const response = await api.get<ActionInterface[]>('investments');
-        setActions(response.data);
+        const localActions: ActionLocalStorageInterface[] = JSON.parse(localStorage.getItem('actions') || '') || [];
         
+        const {data} = await api.get<ActionInterface[]>('investments');
+        setActions(localActions.map(ac => {
+            const dataAction = data.find(action => action.id == ac.id)
+            return {
+                ... dataAction,
+                quant: ac.quant
+            } as ActionInterface
+        }));
     }
 
     useEffect(() => {

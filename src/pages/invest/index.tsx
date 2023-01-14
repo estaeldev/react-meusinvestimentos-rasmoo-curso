@@ -1,18 +1,20 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { LayoutSimple } from "../../components/layoutsimple";
 
 import styles from './styles.module.scss';
 import api from "../../service/api";
-import { ActionInterface } from "../../types/actions";
+import { ActionInterface, ActionLocalStorageInterface } from "../../types/actions";
 import { formatterCurrency } from "../../utils/format";
 
 const BANLANCE_USER = 8950;
 
 export function InvestirPage() {
     const params = useParams();
+    const navigate = useNavigate();
     const [action, setAction] = useState<ActionInterface | null>(null);
+    const [actions, setActions] = useState<ActionLocalStorageInterface[]>([]);
     const [quantAction, setQuantAction] = useState<number>(0);
     
 
@@ -23,6 +25,11 @@ export function InvestirPage() {
 
     useEffect(() => {
         loadAction();
+        const localActions = localStorage.getItem('actions');
+        if(localActions) {
+            setActions(JSON.parse(localActions));
+        }
+
     }, [])
 
     const cancelInvestment = (): void => {
@@ -38,11 +45,26 @@ export function InvestirPage() {
 
     const buyInvestment = (event: FormEvent): void => {
         event.preventDefault();
-        console.log(quantAction);
-        if(quantAction <= maxQuantAction){
+        if(!action) return
 
+        if(quantAction <= maxQuantAction){
+            let localUpdate = [...actions]
+            const indexAction = actions.findIndex(ac => ac.id == action.id);
+
+            if(indexAction < 0) {
+                const newAction = {
+                    id: action.id,
+                    quant: quantAction
+                }
+                localUpdate = [...actions, newAction];
+            } else {
+                localUpdate[indexAction].quant += quantAction;
+            }
+            setActions(localUpdate)
+            localStorage.setItem('actions', JSON.stringify(localUpdate));
         }
         setQuantAction(0);
+        navigate('/meus-investimentos');
     }
 
     return (

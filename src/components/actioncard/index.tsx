@@ -26,16 +26,20 @@ export function ActionCard({isBuy=false,...action}: ActionCardInterface) {
         <div className={`${styles.action} ${modifierClass}`} key={action.name}>
 
             <div className={styles.action__info}>
-                <h1>{action.name} <span>CDB</span></h1>
+                <h1>{action.name} {!isBuy && <span>{action.quant}</span>} </h1>
                 <p>IPCA +{action.tax}</p>
             </div>
             
             <footer className={styles.action__footer}>
                 <div>
                     <p> 
-                        <strong>Valor investido:</strong> 
+                        <strong>Valor da ação:</strong> 
                         {formatterCurrency(action.minValue)} 
                     </p>
+                    {!isBuy && (<p> 
+                        <strong>Total investido:</strong> 
+                        {formatterCurrency(action.minValue * action.quant)} 
+                    </p>)}
                     <p> 
                         <strong>Vencimento:</strong> 
                         {formatterDate(parseISO(action.time))} 
