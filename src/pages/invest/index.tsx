@@ -5,16 +5,15 @@ import { LayoutSimple } from "../../components/layoutsimple";
 
 import styles from './styles.module.scss';
 import api from "../../service/api";
-import { ActionInterface, ActionLocalStorageInterface } from "../../types/actions";
+import { ActionInterface } from "../../types/actions";
 import { formatterCurrency } from "../../utils/format";
-
-const BANLANCE_USER = 8950;
+import { useWallet } from "../../hooks/useWallet";
 
 export function InvestirPage() {
+    const {balance, updateInvestments} = useWallet();
     const params = useParams();
     const navigate = useNavigate();
     const [action, setAction] = useState<ActionInterface | null>(null);
-    const [actions, setActions] = useState<ActionLocalStorageInterface[]>([]);
     const [quantAction, setQuantAction] = useState<number>(0);
     
 
@@ -25,11 +24,6 @@ export function InvestirPage() {
 
     useEffect(() => {
         loadAction();
-        const localActions = localStorage.getItem('actions');
-        if(localActions) {
-            setActions(JSON.parse(localActions));
-        }
-
     }, [])
 
     const cancelInvestment = (): void => {
@@ -38,7 +32,7 @@ export function InvestirPage() {
 
     const maxQuantAction = useMemo(() => {
         if(action) {
-            return Math.floor(BANLANCE_USER / action.minValue);
+            return Math.floor(balance / action.minValue);
         }
         return 0;
     }, [action?.minValue])
@@ -48,20 +42,7 @@ export function InvestirPage() {
         if(!action) return
 
         if(quantAction <= maxQuantAction){
-            let localUpdate = [...actions]
-            const indexAction = actions.findIndex(ac => ac.id == action.id);
-
-            if(indexAction < 0) {
-                const newAction = {
-                    id: action.id,
-                    quant: quantAction
-                }
-                localUpdate = [...actions, newAction];
-            } else {
-                localUpdate[indexAction].quant += quantAction;
-            }
-            setActions(localUpdate)
-            localStorage.setItem('actions', JSON.stringify(localUpdate));
+            updateInvestments({...action, quant: quantAction})
         }
         setQuantAction(0);
         navigate('/meus-investimentos');
@@ -88,7 +69,7 @@ export function InvestirPage() {
 
                     <form className={styles.form} onSubmit={buyInvestment}>
                         <strong>Adicionar Valor</strong>
-                        <span className={styles.badge}>Saldo Atual {formatterCurrency(BANLANCE_USER)} </span>
+                        <span className={styles.badge}>Saldo Atual {formatterCurrency(balance)} </span>
                         <input 
                             type="number" 
                             value={quantAction}

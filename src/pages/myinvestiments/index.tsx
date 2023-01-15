@@ -1,37 +1,17 @@
-import {useState, useEffect, useMemo, ChangeEvent} from "react"
+import {useState, useMemo, ChangeEvent} from "react"
 import { FaSearch } from "react-icons/fa";
 
 import { Layout } from "../../components/layout";
 import { ActionCard } from "../../components/actioncard";
 
-import { ActionInterface, ActionLocalStorageInterface } from "../../types/actions";
 import styles from "./styles.module.scss";
-import api from "../../service/api";
+import { useWallet } from "../../hooks/useWallet";
 
 export function MyInvestmentsPage() {
+
+    const {actions} = useWallet();
+    
     const [searchActionName, setSearchActionName] = useState<string>("");
-    const [actions, setActions] = useState<ActionInterface[]>([]);
-
-    const loadInvestments = async () => {
-        const localActions: ActionLocalStorageInterface[] = JSON.parse(localStorage.getItem('actions') || '') || [];
-        
-        const {data} = await api.get<ActionInterface[]>('investments');
-
-        const result = localActions.map(ac => {
-            const dataAction = data.find(action => action.id == ac.id);
-            const resutAction = {
-                ... dataAction,
-                quant: ac.quant
-            }
-            return resutAction as ActionInterface
-        })
-        
-        setActions(result);
-    }
-
-    useEffect(() => {
-        loadInvestments();
-    }, [])
 
     const handleSearchActionName = (event:ChangeEvent<HTMLInputElement>): void => {
         const value = event.target.value;

@@ -6,19 +6,22 @@ import {MyInvestmentsPage} from './pages/myinvestiments'
 import { InvestmentsListPage } from './pages/investmenstlist'
 import { InvestirPage } from './pages/invest'
 import "./styles/global.scss"
+import { WalletProvider } from './hooks/useWallet'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
   <React.StrictMode>
+    <WalletProvider>
 
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<HomePage />}/>
-        <Route path='/meus-investimentos' element={<MyInvestmentsPage />}/>
-        <Route path='/investir' element={<InvestmentsListPage />}/>
-        <Route path='/investir/:id' element={<InvestirPage />}/>
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<HomePage />}/>
+          <Route path='/meus-investimentos' element={<MyInvestmentsPage />}/>
+          <Route path='/investir' element={<InvestmentsListPage />}/>
+          <Route path='/investir/:id' element={<InvestirPage />}/>
+        </Routes>
+      </BrowserRouter>
 
+    </WalletProvider>
   </React.StrictMode>
 )

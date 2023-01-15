@@ -1,19 +1,11 @@
 import styles from "./styles.module.scss";
 import {FiPlus} from "react-icons/fi";
-import { useMemo } from "react";
 import { formatterCurrency } from "../../utils/format";
+import { useWallet } from "../../hooks/useWallet";
 
-interface WalletInfoInterface {
-    balance:number,
-    invested:number,
-    hasVisibleValues:boolean
-}
+export function WalletInfo() {
 
-export function WalletInfo({balance, invested, hasVisibleValues}: WalletInfoInterface) {
-
-    const totalWallet: number = useMemo(() => {
-        return balance + invested;
-    }, [balance, invested])
+    const {balance, invested, total, hasVisibleValues} = useWallet();
 
     return (
         <div className={styles.walletInfo}>
@@ -35,7 +27,7 @@ export function WalletInfo({balance, invested, hasVisibleValues}: WalletInfoInte
 
             <div>
                 <p>Saldo Total</p>
-                <strong>{hasVisibleValues ? formatterCurrency(totalWallet) : "*****"}</strong>
+                <strong>{hasVisibleValues ? formatterCurrency(total) : "*****"}</strong>
             </div>
 
         </div>

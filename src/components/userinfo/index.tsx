@@ -3,14 +3,11 @@ import {FaRegAddressCard} from "react-icons/fa"
 import {FiEye, FiEyeOff} from "react-icons/fi"
 
 import styles from "./styles.module.scss";
+import { useWallet } from "../../hooks/useWallet";
 
-interface UserInterface {
-    username:string,
-    hasVisibleValues: boolean,
-    changeVisibleValues: () => void
-}
+export function UserInfo() {
 
-export function UserInfo({username, hasVisibleValues, changeVisibleValues}:UserInterface) {
+    const {username, hasVisibleValues, changeVisibleValues} = useWallet();
 
     return (
         

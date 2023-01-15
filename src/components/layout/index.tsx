@@ -1,20 +1,22 @@
-import { Header } from "../header";
+import { UserInfo } from "../userinfo";
+import { WalletInfo } from "../walletinfo";
 import styles from "./styles.module.scss";
 
 interface LayoutInterface {
     children: React.ReactNode
 }
 
-const USER_MOKE = {
-    username: "Estael Meireles",
-    balance: 11652,
-    invested: 27452
-}
 
 export function Layout({children}: LayoutInterface) {
     return (
         <div className={styles.layout}>
-            <Header {...USER_MOKE}/>
+            <header className={styles.header_container}>
+                <div className={styles.header__content}>
+                    <UserInfo />
+                    <WalletInfo />
+                </div>
+            </header>
+
             <main>
                 {children}
             </main>

@@ -14,10 +14,12 @@ export function LayoutSimple({link, title, children}: LayoutSimpleInterface) {
         <div className={styles.container}>
 
             <header className={styles.header}>
-                <Link to={link}>
-                    <FaChevronLeft size={18}/>
-                    {title}
-                </Link>
+                <div className={styles.header__content}>
+                    <Link to={link}>
+                        <FaChevronLeft size={18}/>
+                        {title}
+                    </Link>
+                </div>
             </header>
 
             <main className={styles.main}>
