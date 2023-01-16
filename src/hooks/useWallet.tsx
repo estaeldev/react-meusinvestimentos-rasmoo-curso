@@ -1,6 +1,6 @@
 import { useContext, createContext, useMemo, useState, useEffect } from "react";
 import { ActionInterface } from "../types/actions";
-import { getLocalInvestments, updateLocalInvestments } from "../utils/investments";
+import { extortInvestment, getLocalInvestments, updateLocalInvestments } from "../utils/investments";
 
 
 interface WalletContextInterface {
@@ -12,6 +12,7 @@ interface WalletContextInterface {
     changeVisibleValues: () => void,
     actions: ActionInterface[],
     updateInvestments: (newAction: ActionInterface) => void
+    onSellAction: (actionId: string) => void
 }
 
 interface WalletProviderInterface {
@@ -47,12 +48,26 @@ export function WalletProvider({children}: WalletProviderInterface) {
         setActions(newInvestments);
     }
 
+    const onSellAction = (actionId: string): void => {
+        const action = actions.find(action => action.id == actionId);
+        if(action) {
+
+            // ATUALIZAR SALDO
+            // console.log(extortInvestment(action));
+
+            const updatesActions = actions.filter(action => action.id != actionId);
+            setActions(updatesActions);
+            localStorage.setItem('actions', JSON.stringify(updatesActions));
+        }
+
+    }
+
     useEffect(() => {
         loadInvestments();
     }, [])
 
     return (
-        <walletContext.Provider value={{...user, total, hasVisibleValues, changeVisibleValues, actions, updateInvestments}} >
+        <walletContext.Provider value={{...user, total, hasVisibleValues, changeVisibleValues, actions, updateInvestments, onSellAction}} >
             {children}
         </walletContext.Provider>
     )
