@@ -5,8 +5,9 @@ import {HomePage} from './pages/home'
 import {MyInvestmentsPage} from './pages/myinvestiments'
 import { InvestmentsListPage } from './pages/investmenstlist'
 import { InvestirPage } from './pages/invest'
-import "./styles/global.scss"
 import { WalletProvider } from './hooks/useWallet'
+import { AddBalancePage } from './pages/adicionarsaldo'
+import "./styles/global.scss"
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <Route path='/meus-investimentos' element={<MyInvestmentsPage />}/>
           <Route path='/investir' element={<InvestmentsListPage />}/>
           <Route path='/investir/:id' element={<InvestirPage />}/>
+          <Route path='/adicionar-saldo' element={<AddBalancePage />}/>
         </Routes>
       </BrowserRouter>
 

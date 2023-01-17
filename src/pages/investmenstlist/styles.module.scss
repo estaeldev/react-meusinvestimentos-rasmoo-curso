@@ -1,25 +1,33 @@
 .page__header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    column-gap: 20px;
 
     h2 {
         font-size: 20px;
         line-height: 22px;
         color: var(--black);
+        margin-right: auto;
     }
 
 }
 
 .filter {
     display: flex;
-    column-gap: 20px;
-    
-    span {
-        width: 257px;
-        height: 42px;
-        border-radius: 60px;
+    flex-direction: column;
+    row-gap: 4px;
+
+    select {
+        width: 260px;
+        padding: 12px 20px;
+        border-radius: 8px;
+        border: 1px solid #e6e6f0;
         background: var(--grey);
+
+        &:hover {
+            cursor: pointer;
+        }
+
     }
 
 }

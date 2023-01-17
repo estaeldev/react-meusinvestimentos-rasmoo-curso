@@ -1,6 +1,6 @@
 import { useContext, createContext, useMemo, useState, useEffect } from "react";
 import { ActionInterface } from "../types/actions";
-import { extortInvestment, getLocalInvestments, updateLocalInvestments } from "../utils/investments";
+import { getLocalInvestments, updateLocalInvestments } from "../utils/investments";
 
 
 interface WalletContextInterface {
@@ -11,8 +11,9 @@ interface WalletContextInterface {
     hasVisibleValues: boolean,
     changeVisibleValues: () => void,
     actions: ActionInterface[],
-    updateInvestments: (newAction: ActionInterface) => void
-    onSellAction: (actionId: string) => void
+    updateInvestments: (newAction: ActionInterface) => void,
+    onSellAction: (actionId: string) => void,
+    updateBalance: (someBalance: number) => void
 }
 
 interface WalletProviderInterface {
@@ -23,16 +24,14 @@ interface WalletProviderInterface {
 const walletContext = createContext({} as WalletContextInterface);
 
 export function WalletProvider({children}: WalletProviderInterface) {
-
-    const [user, setUser] = useState({
-        username: "Estael Meireles",
-        balance: 11652,
-        invested: 27452,
-    })
-
+    
+    const username = "Estael Meireles";
+    const [balance, setBalance] = useState<number>(0);
+    const [invested, setInvested] = useState<number>(0);
+    
     const [actions, setActions] = useState<ActionInterface[]>([]);
-    const total: number = useMemo(() => user.balance + user.invested, [user])
-    const [hasVisibleValues, setHasVisibleValues] = useState<boolean>(false);
+    const total: number = useMemo(() => balance + invested, [balance, invested])
+    const [hasVisibleValues, setHasVisibleValues] = useState<boolean>(true);
 
     const changeVisibleValues = (): void => {
         setHasVisibleValues(!hasVisibleValues);
@@ -62,12 +61,37 @@ export function WalletProvider({children}: WalletProviderInterface) {
 
     }
 
+    const updateBalance = (someBalance: number): void => {
+        setBalance(currentBalance => {
+            const newBalance = currentBalance + someBalance;
+            localStorage.setItem('balance', String(newBalance));
+            return newBalance;
+        });
+    }
+
+    const loadBalance = (): void => {
+        const currentBalance = localStorage.getItem('balance');
+        setBalance(Number(currentBalance));
+    }
+
     useEffect(() => {
         loadInvestments();
+        loadBalance();
     }, [])
 
     return (
-        <walletContext.Provider value={{...user, total, hasVisibleValues, changeVisibleValues, actions, updateInvestments, onSellAction}} >
+        <walletContext.Provider value={
+                {username,
+                    balance,
+                    invested, 
+                    total, 
+                    hasVisibleValues, 
+                    changeVisibleValues, 
+                    actions,
+                    updateInvestments, 
+                    onSellAction, 
+                    updateBalance}
+            }>
             {children}
         </walletContext.Provider>
     )

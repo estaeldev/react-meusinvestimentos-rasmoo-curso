@@ -2,6 +2,7 @@ import styles from "./styles.module.scss";
 import {FiPlus} from "react-icons/fi";
 import { formatterCurrency } from "../../utils/format";
 import { useWallet } from "../../hooks/useWallet";
+import { Link } from "react-router-dom";
 
 export function WalletInfo() {
 
@@ -13,11 +14,9 @@ export function WalletInfo() {
             <div>
                 <p>Saldo da Conta</p>
                 <strong>{hasVisibleValues ? formatterCurrency(balance) : "*****"}</strong>
-                <button 
-                    className={styles.walletInfo__button}
-                    type="button" onClick={() => console.log("Ir para pagina de adicionar saldo!")} >
+                <Link to="/adicionar-saldo" className={styles.walletInfo__button} >
                     <FiPlus size={25}/>
-                </button>
+                </Link>
             </div>
 
             <div>
