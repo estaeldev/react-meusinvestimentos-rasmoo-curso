@@ -1,6 +1,6 @@
 import { differenceInDays, parseISO } from "date-fns";
-import api from "../service/api";
-import { ActionInterface, ActionLocalStorageInterface } from "../types/actions";
+import api from "service/api";
+import { ActionInterface, ActionLocalStorageInterface } from "types/actions";
 
 export async function getLocalInvestments(): Promise<ActionInterface[]> {
 

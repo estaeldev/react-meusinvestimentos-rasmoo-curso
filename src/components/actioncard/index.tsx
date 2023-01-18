@@ -1,11 +1,12 @@
 import {useMemo} from "react";
+import { Link } from "react-router-dom";
 import { isPast, parseISO } from "date-fns";
 
-import { formatterCurrency, formatterDate } from "../../utils/format";
-import { ActionInterface } from "../../types/actions";
+import { formatterCurrency, formatterDate } from "utils/format";
+import { ActionInterface } from "types/actions";
 import styles from "./styles.module.scss";
-import { Link } from "react-router-dom";
-import { useWallet } from "../../hooks/useWallet";
+import { useWallet } from "hooks/useWallet";
+
 
 
 interface ActionCardInterface extends ActionInterface {
@@ -15,10 +16,11 @@ interface ActionCardInterface extends ActionInterface {
 
 export function ActionCard({isBuy=false, isSell=false, ...action}: ActionCardInterface) {
 
-    const {onSellAction} = useWallet();
+    const {onSellAction, balance} = useWallet();
 
     const modifierClass:string = useMemo(() => {
         if(isBuy)  {
+            if(balance < action.minValue) return styles.action__disabled
             return "";
         }
         return isPast(parseISO(action.time)) ? styles.action__disabled : "";

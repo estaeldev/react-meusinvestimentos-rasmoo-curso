@@ -1,5 +1,5 @@
-import { Layout } from "../../components/layout";
-import { Main } from "../../components/main";
+import { Layout } from "components/layout";
+import { Main } from "components/main";
 
 export function HomePage() {
 

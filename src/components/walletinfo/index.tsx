@@ -1,7 +1,7 @@
 import styles from "./styles.module.scss";
 import {FiPlus} from "react-icons/fi";
-import { formatterCurrency } from "../../utils/format";
-import { useWallet } from "../../hooks/useWallet";
+import { formatterCurrency } from "utils/format";
+import { useWallet } from "hooks/useWallet";
 import { Link } from "react-router-dom";
 
 export function WalletInfo() {

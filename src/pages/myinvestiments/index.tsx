@@ -2,12 +2,12 @@ import {useState, useMemo, ChangeEvent} from "react"
 import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 
-import { Layout } from "../../components/layout";
-import { ActionCard } from "../../components/actioncard";
-import { BoxAlert } from "../../components/boxalert";
+import { Layout } from "components/layout";
+import { ActionCard } from "components/actioncard";
+import { BoxAlert } from "components/boxalert";
 
 import styles from "./styles.module.scss";
-import { useWallet } from "../../hooks/useWallet";
+import { useWallet } from "hooks/useWallet";
 
 export function MyInvestmentsPage() {
 

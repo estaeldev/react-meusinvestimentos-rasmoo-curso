@@ -1,13 +1,13 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { LayoutSimple } from "../../components/layoutsimple";
+import { LayoutSimple } from "components/layoutsimple";
+import { useWallet } from "hooks/useWallet";
 
+import api from "service/api";
+import { ActionInterface } from "types/actions";
+import { formatterCurrency } from "utils/format";
 import styles from './styles.module.scss';
-import api from "../../service/api";
-import { ActionInterface } from "../../types/actions";
-import { formatterCurrency } from "../../utils/format";
-import { useWallet } from "../../hooks/useWallet";
 
 export function InvestirPage() {
     const {balance, updateInvestments} = useWallet();
@@ -16,19 +16,18 @@ export function InvestirPage() {
     const [action, setAction] = useState<ActionInterface | null>(null);
     const [quantAction, setQuantAction] = useState<number>(0);
     
-
     const loadAction = async () => {
         const {data} = await api.get<ActionInterface>(`investments/${params.id}`);
         setAction(data);
     }
 
+    const goToInvestir = (): void => {
+        navigate('/investir')
+    }
+
     useEffect(() => {
         loadAction();
     }, [])
-
-    const cancelInvestment = (): void => {
-        
-    }
 
     const maxQuantAction = useMemo(() => {
         if(action) {
@@ -79,7 +78,7 @@ export function InvestirPage() {
                             onChange={event => setQuantAction(Number(event.target.value))}
                         />
                         <footer className={styles.form__footer}>
-                            <button type="button" onClick={cancelInvestment}>CANCELAR</button>
+                            <button type="button" onClick={goToInvestir}>CANCELAR</button>
                             <button type="submit">CONFIRMAR</button>
                         </footer>
                     </form>

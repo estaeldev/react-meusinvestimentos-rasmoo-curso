@@ -1,5 +1,5 @@
-import { UserInfo } from "../userinfo";
-import { WalletInfo } from "../walletinfo";
+import { UserInfo } from "components/userinfo";
+import { WalletInfo } from "components/walletinfo";
 import styles from "./styles.module.scss";
 
 interface LayoutInterface {

@@ -3,7 +3,7 @@ import {FaRegAddressCard} from "react-icons/fa"
 import {FiEye, FiEyeOff} from "react-icons/fi"
 
 import styles from "./styles.module.scss";
-import { useWallet } from "../../hooks/useWallet";
+import { useWallet } from "hooks/useWallet";
 
 export function UserInfo() {
 

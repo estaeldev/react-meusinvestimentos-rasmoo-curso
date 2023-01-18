@@ -1,4 +1,4 @@
-import { ButtonLink } from "../buttonlink";
+import { ButtonLink } from "components/buttonlink";
 import styles from "./styles.module.scss";
 
 export function Main() {
