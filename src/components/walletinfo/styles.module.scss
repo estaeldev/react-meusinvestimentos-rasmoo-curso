@@ -27,8 +27,18 @@
             font-size: 18px;
             font-weight: 700;
         }
-        
     }
+
+    @media(max-width: 768px) {
+        flex-direction: column;
+        row-gap: 15px;
+
+        div {
+            width: 100%;
+        }
+
+    }
+
 }
 
 .walletInfo__button {

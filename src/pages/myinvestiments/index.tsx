@@ -32,7 +32,7 @@ export function MyInvestmentsPage() {
         <Layout>
 
             <div className={styles.page__header}>
-                <h1>Meus Investimentos</h1>
+                <h2>Meus Investimentos</h2>
 
                 {!!actions.length && (<div className={styles.field}>
                     <FaSearch />

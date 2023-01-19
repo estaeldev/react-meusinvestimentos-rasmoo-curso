@@ -2,6 +2,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media(max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 30px;
+    }
 }
 
 .badge {
@@ -46,6 +52,18 @@
         }
     }
 
+    @media(max-width: 768px) {
+        row-gap: 16px;
+    }
+
+    @media(max-width: 600px) {
+        row-gap: 10px;
+        div {
+            flex-direction: column;
+            row-gap: 10px;
+        }
+    }
+
 }
 
 .form {
@@ -54,7 +72,8 @@
     align-items: center;
     row-gap: 16px;
 
-    width: 645px;
+    width: 100%;
+    max-width: 645px;
     border: 1px solid var(--grey);
     border-radius: 6px;
     padding: 42px 0;
@@ -107,4 +126,21 @@
         }
     }
     
+    @media(max-width: 600px) {
+        padding: 40px 20px;
+
+        input {
+            max-width: 100%;
+        }
+
+        .form__footer {
+            width: 100%;
+
+            button {
+                width: 100%;
+            }
+        }
+
+    }
+
 }
